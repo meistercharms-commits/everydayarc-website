@@ -9,7 +9,7 @@
     <link rel="icon" type="image/svg+xml" href="logos/everydayarc-icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --cream: #F8F6F3;
@@ -21,7 +21,7 @@
             --teal-dark: #3D8376;
             --white: #FFFFFF;
             --black: #1a1817;
-            --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+            --font-display: 'Cormorant', Georgia, 'Times New Roman', serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -69,7 +69,8 @@
             text-decoration: none;
         }
         .nav-logo:hover { text-decoration: none; }
-        .nav-logo svg { width: 32px; height: 32px; flex-shrink: 0; }
+        .nav-logo { font-family: 'Cormorant', Georgia, serif; font-weight: 600; }
+        .nav-logo svg { width: 32px; height: 32px; flex-shrink: 0; position: relative; top: 1px; }
         .nav-back {
             font-size: 0.88rem;
             font-weight: 500;
@@ -167,17 +168,10 @@
     <nav class="nav">
         <div class="nav-inner">
             <a href="index.html" class="nav-logo">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <defs>
-                        <linearGradient id="logo-grad" x1="0" y1="1" x2="0.7" y2="0">
-                            <stop offset="0%" stop-color="#A8B8A8"/>
-                            <stop offset="100%" stop-color="#8B8680"/>
-                        </linearGradient>
-                    </defs>
-                    <path d="M50,57 C47,45 44,30 46,18 C47,12 53,12 54,18 C56,30 53,45 50,57Z" fill="url(#logo-grad)" opacity="0.85"/>
-                    <path d="M50,57 C45,47 37,33 34,22 C32,15 36,13 38,19 C42,30 47,45 50,57Z" fill="url(#logo-grad)" opacity="0.55"/>
-                    <path d="M50,57 C55,47 63,33 66,22 C68,15 64,13 62,19 C58,30 53,45 50,57Z" fill="url(#logo-grad)" opacity="0.55"/>
-                    <circle cx="50" cy="59" r="3.5" fill="#2B2925"/>
+                <svg viewBox="14 12 76 68" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="22" y="58" width="16" height="16" rx="4" fill="#A67C5B" opacity="0.35" transform="rotate(-5 30 66)"/>
+                    <rect x="40" y="40" width="20" height="20" rx="5" fill="#9A8599" opacity="0.6" transform="rotate(-8 50 50)"/>
+                    <rect x="60" y="20" width="24" height="24" rx="6" fill="#A67C5B" opacity="0.9" transform="rotate(-12 72 32)"/>
                 </svg>
                 Everyday Arc
             </a>
