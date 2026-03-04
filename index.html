@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Everyday Arc &ndash; Quiet Tools for Real Lives</title>
+    <meta name="description" content="Everyday Arc builds calm, considered software for people who are already carrying enough. Thoughtful apps that honour how you truly think, plan, and care for yourself.">
+    <meta property="og:title" content="Everyday Arc &ndash; Quiet Tools for Real Lives">
+    <meta property="og:description" content="Calm, considered software for people who are already carrying enough.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#2B2925">
+    <link rel="icon" type="image/svg+xml" href="logos/everydayarc-icon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           CUSTOM PROPERTIES
+           ======================================== */
+        :root {
+            --cream: #F8F6F3;
+            --cream-dark: #F0EBE6;
+            --warm-grey: #D4CFC9;
+            --sage: #A8B8A8;
+            --taupe: #8B8680;
+            --charcoal: #2B2925;
+            --teal: #4A9B8E;
+            --teal-dark: #3D8376;
+            --teal-light: #B5D6CF;
+            --mint: #E8F4F1;
+            --terracotta: #C97760;
+            --burnt-sienna: #A0714B;
+            --terracotta-light: #E8C4B8;
+            --sand: #D4A574;
+            --brown: #5C4033;
+            --white: #FFFFFF;
+            --black: #1a1817;
+
+            --font-display: 'Cormorant', Georgia, 'Times New Roman', serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* ========================================
+           RESET & BASE
+           ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            font-feature-settings: 'liga' 1, 'kern' 1;
+        }
+
+        ::selection {
+            background: rgba(74, 155, 142, 0.2);
+            color: var(--charcoal);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--warm-grey);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--taupe);
+        }
+
+        /* ========================================
+           GRAIN TEXTURE OVERLAY
+           ======================================== */
+        .grain {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ========================================
+           SCROLL PROGRESS
+           ======================================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--teal);
+            z-index: 10001;
+            width: 0%;
+            transition: none;
+        }
+
+        /* ========================================
+           NAVIGATION
+           ======================================== */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10000;
+            padding: 0 clamp(1.5rem, 4vw, 3rem);
+            transition: background 0.5s ease, border-color 0.5s ease, padding 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(248, 246, 243, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom-color: rgba(212, 207, 201, 0.4);
+        }
+
+        .nav-inner {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 104px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: 'Cormorant', Georgia, serif;
+            font-weight: 600;
+            font-size: 2.6rem;
+            letter-spacing: -0.02em;
+            color: var(--charcoal);
+        }
+
+        .nav-logo svg {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            position: relative;
+            top: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: clamp(2rem, 3.5vw, 3.5rem);
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            color: var(--charcoal);
+            position: relative;
+            padding-bottom: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--teal);
+            transition: width 0.4s var(--ease-out-expo);
+        }
+
+        .nav-links a:hover {
+            color: var(--teal-dark);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 24px;
+            padding: 4px 0;
+            z-index: 10002;
+        }
+
+        .nav-toggle span {
+            display: block;
+            height: 1.5px;
+            background: var(--charcoal);
+            border-radius: 1px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(6.5px) rotate(45deg);
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-6.5px) rotate(-45deg);
+        }
+
+        /* Mobile overlay */
+        .nav-overlay {
+            display: none;
+        }
+
+        /* ========================================
+           HERO
+           ======================================== */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: clamp(7rem, 12vh, 10rem) clamp(1.5rem, 4vw, 3rem) clamp(3rem, 6vh, 5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(400px, 50vw, 700px);
+            height: clamp(400px, 50vw, 700px);
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-ambient {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-ambient-1 {
+            top: -200px;
+            right: -100px;
+            background: var(--sage);
+        }
+
+        .hero-ambient-2 {
+            bottom: -200px;
+            left: -150px;
+            background: var(--teal-light);
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 920px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6.5vw, 6.5rem);
+            font-weight: 400;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            color: var(--charcoal);
+            margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
+        }
+
+        .hero h1 .hero-line {
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: heroLineIn 1s var(--ease-out-expo) forwards;
+        }
+
+        .hero h1 .hero-line:nth-child(1) { animation-delay: 0.2s; }
+        .hero h1 .hero-line:nth-child(2) { animation-delay: 0.35s; }
+        .hero h1 .hero-line:nth-child(3) { animation-delay: 0.5s; }
+
+        @keyframes heroLineIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-sub {
+            font-size: clamp(1rem, 1.3vw, 1.25rem);
+            font-weight: 300;
+            color: var(--taupe);
+            max-width: 540px;
+            margin: 0 auto clamp(2rem, 4vh, 3rem);
+            line-height: 1.75;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroLineIn 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroLineIn 1s var(--ease-out-expo) 0.9s forwards;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 1rem 2.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.4s var(--ease-out-expo);
+            border: 1.5px solid var(--charcoal);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--charcoal);
+        }
+
+        .btn-primary .btn-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--charcoal);
+            padding: 1rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: color 0.3s ease;
+            border-bottom: 1.5px solid var(--warm-grey);
+        }
+
+        .btn-secondary:hover {
+            color: var(--teal-dark);
+            border-bottom-color: var(--teal);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: clamp(2rem, 4vh, 3rem);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            opacity: 0;
+            animation: heroLineIn 1s var(--ease-out-expo) 1.2s forwards;
+        }
+
+        .hero-scroll span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--taupe);
+            font-weight: 500;
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 40px;
+            background: var(--warm-grey);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--teal);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { top: -100%; }
+            50% { top: 100%; }
+            100% { top: 100%; }
+        }
+
+        /* ========================================
+           BRAND STATEMENT
+           ======================================== */
+        .statement {
+            padding: clamp(6rem, 12vh, 10rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--white);
+        }
+
+        .statement-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .statement-text {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3vw, 2.8rem);
+            line-height: 1.4;
+            color: var(--charcoal);
+            letter-spacing: -0.01em;
+        }
+
+        .statement-text .st-muted {
+            color: var(--taupe);
+        }
+
+        .statement-rule {
+            width: 60px;
+            height: 1.5px;
+            background: var(--teal);
+            margin-top: clamp(2.5rem, 4vh, 3.5rem);
+        }
+
+        /* ========================================
+           MARQUEE
+           ======================================== */
+        .marquee-section {
+            padding: clamp(1.5rem, 2.5vh, 2rem) 0;
+            background: var(--charcoal);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 0;
+            width: max-content;
+            animation: marqueeScroll 40s linear infinite;
+        }
+
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-content {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-shrink: 0;
+            padding-right: 0;
+        }
+
+        .marquee-word {
+            font-family: var(--font-display);
+            font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+            color: rgba(248, 246, 243, 0.7);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            padding: 0 clamp(0.75rem, 1.2vw, 1.1rem);
+        }
+
+        .marquee-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--teal);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ========================================
+           PHILOSOPHY
+           ======================================== */
+        .philosophy {
+            padding: clamp(6rem, 14vh, 12rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--cream);
+        }
+
+        .philosophy-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-overline {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--teal);
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+
+        .section-lead {
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            font-weight: 300;
+            color: var(--taupe);
+            line-height: 1.75;
+            max-width: 520px;
+            margin-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1.5rem, 2.5vw, 2.5rem);
+        }
+
+        .phil-card {
+            padding: clamp(2rem, 3vw, 2.8rem);
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 207, 201, 0.5);
+            transition: all 0.5s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .phil-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--teal);
+            border-radius: 12px 12px 0 0;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .phil-card:hover {
+            border-color: var(--teal-light);
+            box-shadow: 0 16px 48px rgba(74, 155, 142, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .phil-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .phil-num {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            color: rgba(212, 207, 201, 0.5);
+            line-height: 1;
+            margin-bottom: 1.25rem;
+            transition: color 0.5s ease;
+        }
+
+        .phil-card:hover .phil-num {
+            color: rgba(74, 155, 142, 0.25);
+        }
+
+        .phil-card h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 2.2vw, 2rem);
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .phil-card p {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--taupe);
+            line-height: 1.75;
+        }
+
+        /* ========================================
+           PRODUCTS
+           ======================================== */
+        .products {
+            padding: clamp(6rem, 14vh, 12rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--white);
+        }
+
+        .products-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-header {
+            margin-bottom: clamp(4rem, 8vh, 6rem);
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: clamp(3rem, 5vh, 4rem);
+            background: var(--cream);
+            border: 1px solid rgba(212, 207, 201, 0.4);
+            transition: box-shadow 0.5s var(--ease-out-expo);
+        }
+
+        .product-showcase:hover {
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.06);
+        }
+
+        .product-visual {
+            position: relative;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-visual.planscope-visual {
+            background: linear-gradient(160deg, #E8F4F1 0%, #D0E8E2 40%, #B5D6CF 100%);
+        }
+
+        .product-visual.rooted-visual {
+            background: linear-gradient(160deg, #F5E6DB 0%, #EBCFBE 40%, #E0BBA8 100%);
+        }
+
+        /* Abstract product illustrations */
+        .product-abstract {
+            position: relative;
+            width: 280px;
+            height: 280px;
+        }
+
+        .ps-shape {
+            position: absolute;
+            border-radius: 8px;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        .product-showcase:hover .ps-shape {
+            transform: translateY(-4px);
+        }
+
+        .ps-shape-1 {
+            width: 200px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.7);
+            top: 40px;
+            left: 40px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        .ps-shape-2 {
+            width: 160px;
+            height: 28px;
+            background: rgba(255, 255, 255, 0.5);
+            top: 80px;
+            left: 40px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .ps-shape-3 {
+            width: 220px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.8);
+            top: 130px;
+            left: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .ps-shape-4 {
+            width: 14px;
+            height: 14px;
+            background: var(--teal);
+            border-radius: 50%;
+            top: 155px;
+            left: 50px;
+            opacity: 0.7;
+        }
+        .ps-shape-5 {
+            width: 120px;
+            height: 6px;
+            background: rgba(74, 155, 142, 0.3);
+            border-radius: 3px;
+            top: 158px;
+            left: 76px;
+        }
+        .ps-shape-6 {
+            width: 80px;
+            height: 6px;
+            background: rgba(74, 155, 142, 0.15);
+            border-radius: 3px;
+            top: 175px;
+            left: 76px;
+        }
+
+        .rt-shape {
+            position: absolute;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        .product-showcase:hover .rt-shape {
+            transform: translateY(-4px);
+        }
+
+        .rt-shape-1 {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            top: 30px;
+            left: 80px;
+            backdrop-filter: blur(6px);
+        }
+        .rt-shape-2 {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(201, 119, 96, 0.2);
+            border: 1px solid rgba(201, 119, 96, 0.15);
+            top: 120px;
+            left: 50px;
+        }
+        .rt-shape-3 {
+            width: 160px;
+            height: 28px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            top: 180px;
+            left: 60px;
+            backdrop-filter: blur(8px);
+        }
+        .rt-shape-4 {
+            width: 100px;
+            height: 28px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            top: 220px;
+            left: 80px;
+        }
+        .rt-shape-5 {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(168, 184, 168, 0.25);
+            top: 90px;
+            left: 170px;
+        }
+
+        .product-info {
+            padding: clamp(2.5rem, 4vw, 3.5rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .product-logo img {
+            height: 56px;
+            width: auto;
+        }
+
+        .product-logo img.logo-square {
+            height: 64px;
+        }
+
+        .product-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .product-status.live {
+            color: var(--teal);
+        }
+
+        .product-status.coming {
+            color: var(--terracotta);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .status-dot.live {
+            background: var(--teal);
+            box-shadow: 0 0 8px rgba(74, 155, 142, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-dot.coming {
+            background: var(--terracotta);
+            opacity: 0.7;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            color: var(--charcoal);
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        .product-tagline {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1rem, 1.3vw, 1.15rem);
+            color: var(--taupe);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--taupe);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+            max-width: 440px;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            color: var(--charcoal);
+            font-weight: 400;
+        }
+
+        .feature-mark {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-mark.teal {
+            background: rgba(74, 155, 142, 0.12);
+            color: var(--teal);
+        }
+
+        .feature-mark.terra {
+            background: rgba(201, 119, 96, 0.12);
+            color: var(--terracotta);
+        }
+
+        .feature-mark svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        .btn-product {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            padding: 0.85rem 2rem;
+            border-radius: 6px;
+            transition: all 0.4s var(--ease-out-expo);
+            width: fit-content;
+        }
+
+        .btn-product.teal-btn {
+            background: var(--teal);
+            color: var(--white);
+            border: 1.5px solid var(--teal);
+        }
+
+        .btn-product.teal-btn:hover {
+            background: transparent;
+            color: var(--teal-dark);
+        }
+
+        .btn-product.terra-btn {
+            background: var(--burnt-sienna);
+            color: var(--white);
+            border: 1.5px solid var(--burnt-sienna);
+        }
+
+        .btn-product.terra-btn:hover {
+            background: transparent;
+            color: var(--burnt-sienna);
+        }
+
+        .btn-product .btn-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-product:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
+        .product-showcase.reversed .product-visual {
+            order: 2;
+        }
+
+        .product-showcase.reversed .product-info {
+            order: 1;
+        }
+
+        /* ========================================
+           VALUES
+           ======================================== */
+        .values {
+            padding: clamp(6rem, 14vh, 12rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--cream);
+        }
+
+        .values-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-header {
+            margin-bottom: clamp(3rem, 6vh, 5rem);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1.5rem, 3vw, 3rem);
+        }
+
+        .value-card {
+            padding: clamp(2rem, 3.5vw, 3rem);
+            border-bottom: 1px solid var(--warm-grey);
+            position: relative;
+            transition: border-color 0.4s ease;
+        }
+
+        .value-card:hover {
+            border-bottom-color: var(--teal);
+        }
+
+        .value-num {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            color: rgba(212, 207, 201, 0.4);
+            line-height: 1;
+            margin-bottom: 1rem;
+            transition: color 0.5s ease;
+        }
+
+        .value-card:hover .value-num {
+            color: rgba(74, 155, 142, 0.2);
+        }
+
+        .value-card h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 2.2vw, 2rem);
+            font-weight: 400;
+            color: var(--charcoal);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .value-card p {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--taupe);
+            line-height: 1.75;
+            max-width: 400px;
+        }
+
+        /* ========================================
+           CTA SECTION
+           ======================================== */
+        .cta-section {
+            padding: clamp(6rem, 14vh, 10rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-ambient {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .cta-ambient-1 {
+            top: -200px;
+            right: -100px;
+            background: var(--teal);
+        }
+
+        .cta-ambient-2 {
+            bottom: -200px;
+            left: -100px;
+            background: var(--sage);
+        }
+
+        .cta-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 400;
+            color: var(--cream);
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-section p {
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            font-weight: 300;
+            color: rgba(248, 246, 243, 0.6);
+            line-height: 1.75;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--teal);
+            color: var(--white);
+            padding: 1.1rem 2.5rem;
+            border-radius: 6px;
+            font-size: 0.92rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.4s var(--ease-out-expo);
+            border: 1.5px solid var(--teal);
+        }
+
+        .btn-cta:hover {
+            background: var(--cream);
+            color: var(--charcoal);
+            border-color: var(--cream);
+        }
+
+        .btn-cta .btn-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-cta:hover .btn-arrow {
+            transform: translateX(3px);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            padding: clamp(3rem, 5vh, 4rem) clamp(1.5rem, 4vw, 3rem);
+            background: var(--black);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: clamp(2rem, 3vh, 3rem);
+            border-bottom: 1px solid rgba(248, 246, 243, 0.08);
+            margin-bottom: clamp(1.5rem, 2vh, 2rem);
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-family: 'Cormorant', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--cream);
+        }
+
+        .footer-brand svg {
+            width: 28px;
+            height: 28px;
+            opacity: 0.7;
+            position: relative;
+            top: 1px;
+        }
+
+        .footer-columns {
+            display: flex;
+            gap: clamp(3rem, 5vw, 5rem);
+        }
+
+        .footer-col h4 {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(248, 246, 243, 0.4);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.88rem;
+            color: rgba(248, 246, 243, 0.55);
+            margin-bottom: 0.65rem;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--teal);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            color: rgba(248, 246, 243, 0.3);
+            font-weight: 300;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            font-size: 0.78rem;
+            color: rgba(248, 246, 243, 0.3);
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: rgba(248, 246, 243, 0.6);
+        }
+
+        /* ========================================
+           SCROLL REVEAL ANIMATIONS
+           ======================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s var(--ease-out-expo),
+                        transform 0.9s var(--ease-out-expo);
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.9s var(--ease-out-expo),
+                        transform 0.9s var(--ease-out-expo);
+        }
+
+        .reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal[data-delay="1"] { transition-delay: 0.08s; }
+        .reveal[data-delay="2"] { transition-delay: 0.16s; }
+        .reveal[data-delay="3"] { transition-delay: 0.24s; }
+        .reveal[data-delay="4"] { transition-delay: 0.32s; }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 1024px) {
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .product-visual {
+                min-height: 300px;
+            }
+
+            .product-showcase.reversed .product-visual {
+                order: 0;
+            }
+
+            .product-showcase.reversed .product-info {
+                order: 0;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-inner {
+                height: 64px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                height: 100dvh;
+                background: var(--cream);
+                justify-content: center;
+                align-items: center;
+                z-index: 10001;
+                gap: 2rem;
+            }
+
+            .nav-links.open a {
+                font-family: var(--font-display);
+                font-size: 1.8rem;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding-top: clamp(6rem, 15vh, 8rem);
+                padding-bottom: clamp(4rem, 8vh, 6rem);
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .hero-cta-group .btn-primary,
+            .hero-cta-group .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .product-abstract {
+                width: 220px;
+                height: 220px;
+                transform: scale(0.85);
+            }
+
+            .footer-top {
+                flex-direction: column;
+            }
+
+            .footer-columns {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .statement-text {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Grain texture -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" aria-label="Everyday Arc home">
+                <svg viewBox="14 12 76 68" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="22" y="58" width="16" height="16" rx="4" fill="#A67C5B" opacity="0.35" transform="rotate(-5 30 66)"/>
+                    <rect x="40" y="40" width="20" height="20" rx="5" fill="#9A8599" opacity="0.6" transform="rotate(-8 50 50)"/>
+                    <rect x="60" y="20" width="24" height="24" rx="6" fill="#A67C5B" opacity="0.9" transform="rotate(-12 72 32)"/>
+                </svg>
+                Everyday Arc
+            </a>
+            <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#values">Values</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="hero-ambient hero-ambient-1" aria-hidden="true"></div>
+        <div class="hero-ambient hero-ambient-2" aria-hidden="true"></div>
+
+        <!-- Background logo watermark -->
+        <svg class="hero-bg-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+                <linearGradient id="hero-bg-grad" x1="0" y1="1" x2="0.7" y2="0">
+                    <stop offset="0%" stop-color="#A8B8A8"/>
+                    <stop offset="100%" stop-color="#8B8680"/>
+                </linearGradient>
+            </defs>
+            <path d="M50,57 C47,45 44,30 46,18 C47,12 53,12 54,18 C56,30 53,45 50,57Z" fill="url(#hero-bg-grad)" opacity="0.85"/>
+            <path d="M50,57 C45,47 37,33 34,22 C32,15 36,13 38,19 C42,30 47,45 50,57Z" fill="url(#hero-bg-grad)" opacity="0.55"/>
+            <path d="M50,57 C55,47 63,33 66,22 C68,15 64,13 62,19 C58,30 53,45 50,57Z" fill="url(#hero-bg-grad)" opacity="0.55"/>
+            <path d="M50,57 C43,49 33,37 28,26 C25,18 30,15 33,22 C38,33 45,47 50,57Z" fill="url(#hero-bg-grad)" opacity="0.3"/>
+            <path d="M50,57 C57,49 67,37 72,26 C75,18 70,15 67,22 C62,33 55,47 50,57Z" fill="url(#hero-bg-grad)" opacity="0.3"/>
+            <circle cx="50" cy="59" r="4" fill="#2B2925" opacity="0.6"/>
+        </svg>
+
+        <div class="hero-content">
+            <h1>
+                <span class="hero-line">Quiet tools for the lives</span>
+                <span class="hero-line">people actually live</span>
+            </h1>
+            <p class="hero-sub">Everyday Arc builds calm, considered software for people who are already carrying enough. Simple by design. Trusted from day one.</p>
+            <div class="hero-cta-group">
+                <a href="#products" class="btn-primary">Explore our products <span class="btn-arrow">&rsaquo;</span></a>
+                <a href="#philosophy" class="btn-secondary">Our philosophy</a>
+            </div>
+        </div>
+
+        <div class="hero-scroll" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ========== BRAND STATEMENT ========== -->
+    <section class="statement">
+        <div class="statement-inner reveal">
+            <p class="statement-text">
+                We create apps that honour how people truly think, plan, and care for themselves. <span class="st-muted">Calm interfaces, gentle guidance, and the kind of quiet reliability that earns trust over time. Built for the overthinkers, the overwhelmed, and anyone trying to look after themselves in a messy, real world.</span>
+            </p>
+            <div class="statement-rule" aria-hidden="true"></div>
+        </div>
+    </section>
+
+    <!-- ========== MARQUEE ========== -->
+    <section class="marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+<div class="marquee-content"><span class="marquee-word">calm</span><span class="marquee-dot"></span><span class="marquee-word">considered</span><span class="marquee-dot"></span><span class="marquee-word">inclusive</span><span class="marquee-dot"></span><span class="marquee-word">intentional</span><span class="marquee-dot"></span><span class="marquee-word">trusted</span><span class="marquee-dot"></span><span class="marquee-word">gentle</span><span class="marquee-dot"></span><span class="marquee-word">sustainable</span><span class="marquee-dot"></span><span class="marquee-word">grounded</span><span class="marquee-dot"></span></div><div class="marquee-content"><span class="marquee-word">calm</span><span class="marquee-dot"></span><span class="marquee-word">considered</span><span class="marquee-dot"></span><span class="marquee-word">inclusive</span><span class="marquee-dot"></span><span class="marquee-word">intentional</span><span class="marquee-dot"></span><span class="marquee-word">trusted</span><span class="marquee-dot"></span><span class="marquee-word">gentle</span><span class="marquee-dot"></span><span class="marquee-word">sustainable</span><span class="marquee-dot"></span><span class="marquee-word">grounded</span><span class="marquee-dot"></span></div>
+        </div>
+    </section>
+
+    <!-- ========== PHILOSOPHY ========== -->
+    <section id="philosophy" class="philosophy">
+        <div class="philosophy-inner">
+            <div class="section-overline reveal">Our approach</div>
+            <h2 class="section-heading reveal" data-delay="1">Built on what matters</h2>
+            <p class="section-lead reveal" data-delay="2">Every decision we make begins with a single question: does this genuinely help the people who use it?</p>
+
+            <div class="philosophy-grid">
+                <div class="phil-card reveal" data-delay="1">
+                    <div class="phil-num">01</div>
+                    <h3>Psychological safety at the centre</h3>
+                    <p>Our products feel safe to open on any day, especially the difficult ones. No guilt, no shaming, no performance anxiety. Just a calm space that meets you where you are.</p>
+                </div>
+                <div class="phil-card reveal" data-delay="2">
+                    <div class="phil-num">02</div>
+                    <h3>Designed for underrepresented realities</h3>
+                    <p>We centre the people and experiences that mainstream apps tend to overlook. Natural hair care, neurodivergent planning styles, nonlinear routines, and everything in between.</p>
+                </div>
+                <div class="phil-card reveal" data-delay="3">
+                    <div class="phil-num">03</div>
+                    <h3>Intentional by design</h3>
+                    <p>We add features slowly and with deep consideration. Everything in our products has earned its place. If something adds to the mental load rather than easing it, it does not ship.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PRODUCTS ========== -->
+    <section id="products" class="products">
+        <div class="products-inner">
+            <div class="products-header">
+                <div class="section-overline reveal">Our products</div>
+                <h2 class="section-heading reveal" data-delay="1">Thoughtfully built, ready when you are</h2>
+            </div>
+
+            <!-- Planscope -->
+            <div class="product-showcase reveal">
+                <div class="product-visual planscope-visual">
+                    <div class="product-abstract">
+                        <div class="ps-shape ps-shape-1"></div>
+                        <div class="ps-shape ps-shape-2"></div>
+                        <div class="ps-shape ps-shape-3"></div>
+                        <div class="ps-shape ps-shape-4"></div>
+                        <div class="ps-shape ps-shape-5"></div>
+                        <div class="ps-shape ps-shape-6"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-status live">
+                        <span class="status-dot live"></span>
+                        Available now
+                    </div>
+                    <div class="product-logo">
+                        <img src="logos/planscope_lightbackground_primary.svg" alt="Planscope logo">
+                    </div>
+                    <p class="product-tagline">A quiet planning space for busy minds</p>
+                    <p class="product-desc">Write freely, let the app bring order, and move through your week with less friction. Planscope turns scattered thoughts into a clear, achievable plan. No complicated systems, no learning curve.</p>
+                    <ul class="product-features">
+                        <li>
+                            <span class="feature-mark teal"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Brain dump to weekly plan in minutes
+                        </li>
+                        <li>
+                            <span class="feature-mark teal"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Gentle structure for overwhelmed minds
+                        </li>
+                        <li>
+                            <span class="feature-mark teal"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Designed around how you actually think
+                        </li>
+                    </ul>
+                    <a href="https://planscope.app" class="btn-product teal-btn" target="_blank" rel="noopener">Try Planscope <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+            </div>
+
+            <!-- Rooted -->
+            <div class="product-showcase reversed reveal">
+                <div class="product-visual rooted-visual">
+                    <div class="product-abstract">
+                        <div class="rt-shape rt-shape-1"></div>
+                        <div class="rt-shape rt-shape-2"></div>
+                        <div class="rt-shape rt-shape-3"></div>
+                        <div class="rt-shape rt-shape-4"></div>
+                        <div class="rt-shape rt-shape-5"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-status coming">
+                        <span class="status-dot coming"></span>
+                        Coming soon
+                    </div>
+                    <div class="product-logo">
+                        <img src="logos/Rooted filled oval on the left-1.svg" alt="Rooted logo" class="logo-square">
+                    </div>
+                    <p class="product-tagline">A gentle companion for natural hair and self-care</p>
+                    <p class="product-desc">Track what works, celebrate small wins, and build routines that feel sustainable. Rooted is a judgement-free space for people caring for their hair and themselves, with culturally grounded design at its core.</p>
+                    <ul class="product-features">
+                        <li>
+                            <span class="feature-mark terra"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Culturally grounded from the ground up
+                        </li>
+                        <li>
+                            <span class="feature-mark terra"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Routine tracking without pressure
+                        </li>
+                        <li>
+                            <span class="feature-mark terra"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Progress that feels personal and kind
+                        </li>
+                    </ul>
+                    <a href="https://myrooted.app" class="btn-product terra-btn" target="_blank" rel="noopener">Join the waitlist <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== VALUES ========== -->
+    <section id="values" class="values">
+        <div class="values-inner">
+            <div class="values-header">
+                <div class="section-overline reveal">What we believe</div>
+                <h2 class="section-heading reveal" data-delay="1">The principles we build by</h2>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card reveal" data-delay="1">
+                    <div class="value-num">01</div>
+                    <h3>We respect your mental space</h3>
+                    <p>Minimal notifications. No dark patterns. No addictive loops. Our apps help you live your life, never pulling you into the product for the sake of engagement.</p>
+                </div>
+                <div class="value-card reveal" data-delay="2">
+                    <div class="value-num">02</div>
+                    <h3>We design for reality</h3>
+                    <p>Messy schedules, off days, competing priorities. Our tools work with how life actually happens, because nobody lives in a perfectly planned grid.</p>
+                </div>
+                <div class="value-card reveal" data-delay="3">
+                    <div class="value-num">03</div>
+                    <h3>Small arcs, better days</h3>
+                    <p>We are here for gentle, accumulative progress. The kind that compounds quietly over weeks and months, and feels humane every step of the way.</p>
+                </div>
+                <div class="value-card reveal" data-delay="4">
+                    <div class="value-num">04</div>
+                    <h3>Independent and sustainable</h3>
+                    <p>We build for people with no growth-at-all-costs thinking behind us. Quality products, honest pricing, and a commitment to earning long-term trust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="cta-section">
+        <div class="cta-ambient cta-ambient-1" aria-hidden="true"></div>
+        <div class="cta-ambient cta-ambient-2" aria-hidden="true"></div>
+        <div class="cta-inner">
+            <h2 class="reveal">Start where you are</h2>
+            <p class="reveal" data-delay="1">Every small step matters. Choose the app that fits where you are right now, and let it quietly work alongside you.</p>
+            <a href="https://planscope.app" class="btn-cta reveal" data-delay="2" target="_blank" rel="noopener">Explore Planscope <span class="btn-arrow">&rsaquo;</span></a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <svg viewBox="14 12 76 68" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect x="22" y="58" width="16" height="16" rx="4" fill="#C9A482" opacity="0.3" transform="rotate(-5 30 66)"/>
+                        <rect x="40" y="40" width="20" height="20" rx="5" fill="#B8A0B7" opacity="0.55" transform="rotate(-8 50 50)"/>
+                        <rect x="60" y="20" width="24" height="24" rx="6" fill="#C9A482" opacity="0.85" transform="rotate(-12 72 32)"/>
+                    </svg>
+                    Everyday Arc
+                </div>
+                <div class="footer-columns">
+                    <div class="footer-col">
+                        <h4>Products</h4>
+                        <a href="https://planscope.app" target="_blank" rel="noopener">Planscope</a>
+                        <a href="https://myrooted.app" target="_blank" rel="noopener">Rooted</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Company</h4>
+                        <a href="#philosophy">Philosophy</a>
+                        <a href="#values">Values</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Legal</h4>
+                        <a href="privacy.html">Privacy</a>
+                        <a href="terms.html">Terms</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">&copy; 2026 Everyday Arc. All rights reserved.</span>
+                <div class="footer-legal">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- Scroll Progress ----
+            const progressBar = document.querySelector('.scroll-progress');
+
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progressBar.style.width = progress + '%';
+            }
+
+            // ---- Nav Scroll State ----
+            const nav = document.querySelector('.nav');
+
+            function updateNav() {
+                if (window.scrollY > 40) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            // ---- Combined Scroll Handler ----
+            let ticking = false;
+
+            function onScroll() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        updateProgress();
+                        updateNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            updateProgress();
+            updateNav();
+
+            // ---- Mobile Nav Toggle ----
+            const toggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            if (toggle) {
+                toggle.addEventListener('click', function() {
+                    const isOpen = navLinks.classList.toggle('open');
+                    toggle.classList.toggle('active');
+                    toggle.setAttribute('aria-expanded', isOpen);
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                });
+
+                // Close menu on link click
+                navLinks.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        toggle.classList.remove('active');
+                        toggle.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
+                    });
+                });
+            }
+
+            // ---- Scroll Reveal (Intersection Observer) ----
+            var revealElements = document.querySelectorAll('.reveal, .reveal-left');
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.15,
+                    rootMargin: '0px 0px -60px 0px'
+                });
+
+                revealElements.forEach(function(el) {
+                    observer.observe(el);
+                });
+            } else {
+                // Fallback: show everything
+                revealElements.forEach(function(el) {
+                    el.classList.add('revealed');
+                });
+            }
+
+            // ---- Smooth scroll for anchor links ----
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        var offset = 100;
+                        var targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // ---- Hero parallax on scroll ----
+            var heroBgLogo = document.querySelector('.hero-bg-logo');
+            var heroContent = document.querySelector('.hero-content');
+            var heroScroll = document.querySelector('.hero-scroll');
+
+            function heroParallax() {
+                var scrollY = window.scrollY;
+                var vh = window.innerHeight;
+
+                if (scrollY < vh) {
+                    var ratio = scrollY / vh;
+                    if (heroBgLogo) {
+                        heroBgLogo.style.transform = 'translate(-50%, calc(-50% + ' + (scrollY * 0.15) + 'px))';
+                        heroBgLogo.style.opacity = Math.max(0, 0.04 - ratio * 0.04);
+                    }
+                    if (heroContent) {
+                        heroContent.style.transform = 'translateY(' + (scrollY * 0.08) + 'px)';
+                        heroContent.style.opacity = Math.max(0, 1 - ratio * 1.2);
+                    }
+                    if (heroScroll) {
+                        heroScroll.style.opacity = Math.max(0, 1 - ratio * 3);
+                    }
+                }
+            }
+
+            window.addEventListener('scroll', function() {
+                requestAnimationFrame(heroParallax);
+            }, { passive: true });
+
+        })();
+    </script>
+</body>
+</html>
