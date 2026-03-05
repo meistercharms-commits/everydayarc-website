@@ -1189,13 +1189,22 @@
             background: currentColor;
         }
 
-        .cta-card h3 {
-            font-family: var(--font-display);
-            font-size: clamp(1.5rem, 2.2vw, 2rem);
-            font-weight: 400;
-            color: var(--cream);
-            line-height: 1.2;
-            letter-spacing: -0.02em;
+        .cta-card-logo {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(248, 246, 243, 0.96);
+            border-radius: 8px;
+            padding: 0.5rem 0.85rem;
+        }
+
+        .cta-card-logo img {
+            height: 28px;
+            width: auto;
+            display: block;
+        }
+
+        .cta-card-logo img.logo-square {
+            height: 32px;
         }
 
         .cta-card p {
@@ -1747,13 +1756,17 @@
             <div class="cta-cards">
                 <div class="cta-card reveal" data-delay="2">
                     <div class="cta-card-tag teal"><span class="cta-card-tag-dot"></span> Available now</div>
-                    <h3>Planscope</h3>
+                    <div class="cta-card-logo">
+                        <img src="logos/planscope_lightbackground_primary.svg" alt="Planscope">
+                    </div>
                     <p>A quiet planning space for busy minds. Write freely, let the app bring order, and move through your week with less friction.</p>
                     <a href="https://planscope.app" class="btn-cta teal-cta" target="_blank" rel="noopener">Try Planscope <span class="btn-arrow">&rsaquo;</span></a>
                 </div>
                 <div class="cta-card reveal" data-delay="3">
                     <div class="cta-card-tag sage"><span class="cta-card-tag-dot"></span> Coming soon</div>
-                    <h3>Rooted</h3>
+                    <div class="cta-card-logo">
+                        <img src="logos/Rooted filled oval on the left-1.svg" alt="Rooted" class="logo-square">
+                    </div>
                     <p>A gentle companion for natural hair and self-care. Track what works, celebrate small wins, and build routines that feel sustainable.</p>
                     <a href="https://myrooted.app" class="btn-cta sage-cta" target="_blank" rel="noopener">Join the waitlist <span class="btn-arrow">&rsaquo;</span></a>
                 </div>
