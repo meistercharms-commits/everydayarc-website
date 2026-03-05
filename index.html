@@ -705,7 +705,6 @@
 
         .ps-shape {
             position: absolute;
-            border-radius: 8px;
             transition: transform 0.6s var(--ease-out-expo);
         }
 
@@ -713,58 +712,80 @@
             transform: translateY(-4px);
         }
 
+        /* Card frame */
         .ps-shape-1 {
-            width: 200px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.7);
+            width: 224px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.78);
+            border-radius: 14px;
             top: 40px;
-            left: 40px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
-        .ps-shape-2 {
-            width: 160px;
-            height: 28px;
-            background: rgba(255, 255, 255, 0.5);
-            top: 80px;
-            left: 40px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.4);
-        }
-        .ps-shape-3 {
-            width: 220px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.8);
-            top: 130px;
-            left: 30px;
-            border-radius: 12px;
+            left: 28px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.6);
         }
-        .ps-shape-4 {
-            width: 14px;
-            height: 14px;
+        /* Teal header strip */
+        .ps-shape-2 {
+            width: 224px;
+            height: 38px;
+            background: rgba(74, 155, 142, 0.18);
+            border-radius: 14px 14px 0 0;
+            top: 40px;
+            left: 28px;
+        }
+        /* Row 1 dot — teal filled (done) */
+        .ps-shape-3 {
+            width: 9px;
+            height: 9px;
             background: var(--teal);
             border-radius: 50%;
-            top: 155px;
-            left: 50px;
-            opacity: 0.7;
+            opacity: 0.85;
+            top: 103px;
+            left: 48px;
         }
-        .ps-shape-5 {
-            width: 120px;
-            height: 6px;
+        /* Row 1 bar */
+        .ps-shape-4 {
+            width: 148px;
+            height: 8px;
             background: rgba(74, 155, 142, 0.3);
-            border-radius: 3px;
-            top: 158px;
-            left: 76px;
+            border-radius: 4px;
+            top: 102px;
+            left: 66px;
         }
+        /* Row 2 dot — light (pending) */
+        .ps-shape-5 {
+            width: 9px;
+            height: 9px;
+            background: rgba(74, 155, 142, 0.25);
+            border-radius: 50%;
+            top: 128px;
+            left: 48px;
+        }
+        /* Row 2 bar — shorter */
         .ps-shape-6 {
-            width: 80px;
-            height: 6px;
+            width: 108px;
+            height: 8px;
             background: rgba(74, 155, 142, 0.15);
-            border-radius: 3px;
-            top: 175px;
-            left: 76px;
+            border-radius: 4px;
+            top: 127px;
+            left: 66px;
+        }
+        /* Row 3 dot — light (pending) */
+        .ps-shape-7 {
+            width: 9px;
+            height: 9px;
+            background: rgba(74, 155, 142, 0.25);
+            border-radius: 50%;
+            top: 153px;
+            left: 48px;
+        }
+        /* Row 3 bar — medium */
+        .ps-shape-8 {
+            width: 132px;
+            height: 8px;
+            background: rgba(74, 155, 142, 0.2);
+            border-radius: 4px;
+            top: 152px;
+            left: 66px;
         }
 
         .rt-shape {
@@ -1099,7 +1120,7 @@
         }
 
         .cta-inner {
-            max-width: 720px;
+            max-width: 860px;
             margin: 0 auto;
             text-align: center;
             position: relative;
@@ -1116,37 +1137,117 @@
             letter-spacing: -0.02em;
         }
 
-        .cta-section p {
+        .cta-section > .cta-inner > p {
             font-size: clamp(1rem, 1.2vw, 1.1rem);
             font-weight: 300;
             color: rgba(248, 246, 243, 0.6);
             line-height: 1.75;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            text-align: left;
+        }
+
+        .cta-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cta-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .cta-card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .cta-card-tag.teal { color: var(--teal); }
+        .cta-card-tag.sage { color: var(--sage); }
+
+        .cta-card-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .cta-card h3 {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 2.2vw, 2rem);
+            font-weight: 400;
+            color: var(--cream);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-card p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: rgba(248, 246, 243, 0.55);
+            line-height: 1.7;
+            flex: 1;
         }
 
         .btn-cta {
             display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            background: var(--teal);
-            color: var(--white);
-            padding: 1.1rem 2.5rem;
+            padding: 0.9rem 1.75rem;
             border-radius: 6px;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 500;
             letter-spacing: 0.01em;
-            transition: all 0.4s var(--ease-out-expo);
+            transition: all 0.35s var(--ease-out-expo);
+            align-self: flex-start;
+            margin-top: 0.5rem;
+        }
+
+        .btn-cta.teal-cta {
+            background: var(--teal);
+            color: var(--white);
             border: 1.5px solid var(--teal);
         }
 
-        .btn-cta:hover {
-            background: var(--cream);
-            color: var(--charcoal);
-            border-color: var(--cream);
+        .btn-cta.teal-cta:hover {
+            background: transparent;
+            color: var(--teal);
+        }
+
+        .btn-cta.sage-cta {
+            background: transparent;
+            color: var(--sage);
+            border: 1.5px solid rgba(168, 184, 168, 0.4);
+        }
+
+        .btn-cta.sage-cta:hover {
+            background: rgba(168, 184, 168, 0.1);
+            border-color: var(--sage);
         }
 
         .btn-cta .btn-arrow {
             transition: transform 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .cta-cards { grid-template-columns: 1fr; }
         }
 
         .btn-cta:hover .btn-arrow {
@@ -1530,6 +1631,8 @@
                         <div class="ps-shape ps-shape-4"></div>
                         <div class="ps-shape ps-shape-5"></div>
                         <div class="ps-shape ps-shape-6"></div>
+                        <div class="ps-shape ps-shape-7"></div>
+                        <div class="ps-shape ps-shape-8"></div>
                     </div>
                 </div>
                 <div class="product-info">
@@ -1640,8 +1743,21 @@
         <div class="cta-ambient cta-ambient-2" aria-hidden="true"></div>
         <div class="cta-inner">
             <h2 class="reveal">Start where you are</h2>
-            <p class="reveal" data-delay="1">Every small step matters. Choose the app that fits where you are right now, and let it quietly work alongside you.</p>
-            <a href="https://planscope.app" class="btn-cta reveal" data-delay="2" target="_blank" rel="noopener">Explore Planscope <span class="btn-arrow">&rsaquo;</span></a>
+            <p class="reveal" data-delay="1">Two products. One for planning, one for care. Pick the one that fits where you are right now.</p>
+            <div class="cta-cards">
+                <div class="cta-card reveal" data-delay="2">
+                    <div class="cta-card-tag teal"><span class="cta-card-tag-dot"></span> Available now</div>
+                    <h3>Planscope</h3>
+                    <p>A quiet planning space for busy minds. Write freely, let the app bring order, and move through your week with less friction.</p>
+                    <a href="https://planscope.app" class="btn-cta teal-cta" target="_blank" rel="noopener">Try Planscope <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+                <div class="cta-card reveal" data-delay="3">
+                    <div class="cta-card-tag sage"><span class="cta-card-tag-dot"></span> Coming soon</div>
+                    <h3>Rooted</h3>
+                    <p>A gentle companion for natural hair and self-care. Track what works, celebrate small wins, and build routines that feel sustainable.</p>
+                    <a href="https://myrooted.app" class="btn-cta sage-cta" target="_blank" rel="noopener">Join the waitlist <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+            </div>
         </div>
     </section>
 
