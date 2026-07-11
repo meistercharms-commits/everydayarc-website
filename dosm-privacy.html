@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Department of Small Matters</title>
+<meta name="description" content="How the Department of Small Matters (Let It Be Known, by Everyday Arc) handles the matters you bring it and the information it keeps.">
+<meta name="theme-color" content="#f4edd8">
+<meta name="robots" content="index">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2096%2096%27%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2745%27%20fill%3D%27%23f4edd8%27%20stroke%3D%27%231c1812%27%20stroke-width%3D%272%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2748%27%20r%3D%2737%27%20fill%3D%27none%27%20stroke%3D%27%231c1812%27%20stroke-width%3D%271%27%2F%3E%3Cpath%20d%3D%27M48%2022.5%2043.75%2050Q48%2060%2048%2060t4.25-10Z%27%20fill%3D%27%231c1812%27%2F%3E%3Ccircle%20cx%3D%2748%27%20cy%3D%2758.5%27%20r%3D%273.25%27%20fill%3D%27%237a6330%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@400;500;600&family=Gelasio:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4edd8; --sheet:#f8f1de; --ink:#1c1812; --ink-mid:#3d3526; --ink-light:#665a45;
+    --gold:#7a6330; --gold-mid:#9a7b3a; --red:#8b2020; --navy:#1e3a5f; --emerald-dark:#1e4a37; --line:#cbbd9e;
+    --serif:'Cormorant Garamond',Georgia,serif; --sc:'Cormorant SC',Georgia,serif;
+    --read:'Gelasio',Georgia,'Times New Roman',serif; --mono:'Space Mono',ui-monospace,Menlo,monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0; color:var(--ink); font-family:var(--read); font-size:17px; line-height:1.68;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    background-color:var(--paper);
+    background-image:radial-gradient(circle at 18% 27%, rgba(139,115,64,.06) 0 1px, transparent 1.6px), radial-gradient(circle at 76% 63%, rgba(28,24,18,.035) 0 1px, transparent 1.5px);
+    background-size:18px 20px, 24px 30px; padding:26px}
+  a{color:var(--navy)}
+  svg{display:block}
+  .frame{position:relative; max-width:900px; margin:0 auto; padding:30px 44px 40px;
+    border:2px solid var(--navy);
+    box-shadow:inset 0 0 0 4px var(--paper), inset 0 0 0 5px rgba(30,58,95,.5), 0 30px 80px -50px rgba(28,24,18,.5)}
+
+  /* header */
+  .masthead{display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    padding:14px 4px 20px; border-bottom:3px double var(--navy)}
+  .lockup{display:flex; align-items:center; gap:14px; text-decoration:none; color:var(--ink)}
+  .lockup .mark{width:52px; height:52px; flex:0 0 auto}
+  .lockup .bar{width:1px; height:38px; background:rgba(28,24,18,.22)}
+  .lockup .word{font-family:var(--sc); font-size:20px; letter-spacing:.14em; text-transform:uppercase; display:block; line-height:1.05}
+  .lockup .tag{font-family:var(--read); font-style:italic; font-size:12.5px; color:var(--ink-light); margin-top:3px; display:block}
+  .backlink{font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--navy); text-decoration:none; border-bottom:1px solid var(--gold-mid); padding-bottom:3px}
+
+  /* doc head */
+  .dochead{text-align:center; padding:56px 0 8px}
+  .kicker{font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--red)}
+  .dochead h1{font-family:var(--serif); font-weight:600; font-size:clamp(38px,6vw,58px); text-transform:uppercase;
+    letter-spacing:.03em; color:var(--navy); line-height:1.02; margin:14px 0 0}
+  .diamond{position:relative; width:56px; height:1px; margin:20px auto; background:var(--gold-mid)}
+  .diamond::after{content:""; position:absolute; left:50%; top:50%; width:6px; height:6px; transform:translate(-50%,-50%) rotate(45deg); background:var(--gold-mid)}
+  .meta{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--ink-light)}
+  .lede{max-width:660px; margin:22px auto 0; font-family:var(--serif); font-style:italic; font-size:21px; line-height:1.5; color:var(--ink-mid); text-align:center}
+
+  /* principle callout */
+  .principle{max-width:720px; margin:44px auto 0; padding:26px 30px; background:var(--sheet);
+    border:3px double var(--navy); box-shadow:0 18px 40px -30px rgba(78,54,18,.6)}
+  .principle .lbl{font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--red); display:block; padding-bottom:12px; border-bottom:1px solid rgba(139,32,32,.28)}
+  .principle p{margin:14px 0 0}
+
+  /* body */
+  .doc{max-width:720px; margin:0 auto; padding-top:20px}
+  .doc section{padding-top:40px}
+  .doc h2{font-family:var(--mono); font-weight:700; font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--red); margin:0 0 16px; padding-bottom:11px; border-bottom:1px solid var(--line)}
+  .doc h3{font-family:var(--sc); font-size:19px; letter-spacing:.06em; color:var(--navy); margin:22px 0 6px}
+  .doc p{margin:0 0 14px}
+  .doc ul{margin:0 0 14px; padding-left:22px}
+  .doc li{margin:0 0 8px}
+  .doc strong{font-weight:600}
+  .doc .note{font-style:italic; color:var(--ink-light); font-size:15.5px}
+
+  /* footer */
+  .site-footer{display:grid; grid-template-columns:1fr 1fr 1fr; align-items:end; gap:24px;
+    margin-top:56px; padding:28px 4px 8px; border-top:3px double var(--navy)}
+  .foot-brand .word{font-family:var(--sc); font-size:16px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink)}
+  .foot-brand .ftag{font-family:var(--read); font-style:italic; font-size:13px; color:var(--ink-light); margin-top:3px}
+  .registrar{text-align:center; color:var(--navy)}
+  .registrar .r{font-family:var(--serif); font-style:italic; font-size:32px; border-bottom:1px solid var(--ink-light); display:inline-block; padding:0 10px 2px}
+  .registrar .rl{font-family:var(--sc); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-light); margin-top:6px}
+  .reference{text-align:right; font-family:var(--mono); font-weight:700; font-size:10px; letter-spacing:.05em; color:var(--ink-light); line-height:2}
+  .reference a{text-decoration:none; border-bottom:1px solid var(--gold-mid)}
+  .colophon{margin-top:20px; padding-top:16px; border-top:1px solid var(--line); text-align:center; font-family:var(--serif); font-style:italic; font-size:13px; color:var(--ink-light)}
+
+  @media (max-width:640px){
+    body{padding:14px}
+    .frame{padding:22px 20px 30px}
+    .site-footer{grid-template-columns:1fr; text-align:center; gap:18px}
+    .reference{text-align:center}
+    .backlink{order:3}
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <header class="masthead">
+    <a class="lockup" href="letitbeknown.html" aria-label="Let It Be Known, home">
+      <svg class="mark" viewBox="0 0 96 96" fill="none" aria-hidden="true" style="color:var(--ink)">
+        <circle cx="48" cy="48" r="44" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="48" cy="58.5" r="18" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        <circle cx="48" cy="58.5" r="9.5" stroke="currentColor" stroke-width="1" opacity=".7"/>
+        <path d="M 48 22.5 L 43.75 50 Q 48 60 48 60 Q 48 60 52.25 50 Z" fill="currentColor"/>
+        <line x1="48" y1="32.5" x2="48" y2="47.5" stroke="var(--paper)" stroke-width=".8"/>
+        <circle cx="48" cy="42" r="1.5" fill="var(--paper)"/>
+        <circle cx="48" cy="58.5" r="3.25" fill="var(--gold)"/>
+      </svg>
+      <span class="bar" aria-hidden="true"></span>
+      <span><span class="word">Let It Be Known</span><span class="tag">A ceremony for small things</span></span>
+    </a>
+    <a class="backlink" href="letitbeknown.html">Return to the Department &rarr;</a>
+  </header>
+
+  <div class="dochead">
+    <p class="kicker">Department of Small Matters</p>
+    <h1>Privacy Policy</h1>
+    <div class="diamond" aria-hidden="true"></div>
+    <p class="meta">Last updated: 11 July 2026</p>
+    <p class="lede">The certificate is the record. The words you bring to the Department are not kept on our servers.</p>
+  </div>
+
+  <div class="principle">
+    <span class="lbl">The Department's Principle</span>
+    <p>Let It Be Known is built so that the matter you file is turned into a certificate and that certificate becomes the record. Your original grievance words are never stored on our servers, and the only part of your matter that reaches our artificial-intelligence provider is the grievance text itself, stripped of your name and identifiers. Everything below explains this in full.</p>
+  </div>
+
+  <div class="doc">
+    <section>
+      <h2>1. Who we are</h2>
+      <p>Let It Be Known, the Department of Small Matters, is an app operated by <strong>Everyday Arc Ltd</strong> ("we", "us", "our", "the Department"). This policy explains what information we collect when you use the app, how we use it, and the choices you have. If you have any questions, you can reach us at <a href="mailto:hello@everydayarc.com">hello@everydayarc.com</a>.</p>
+    </section>
+
+    <section>
+      <h2>2. Information we collect</h2>
+      <p>We keep what we collect to what the app needs to work. Depending on how you use Let It Be Known, this may include:</p>
+      <ul>
+        <li><strong>Account information.</strong> You can use the app anonymously. If you choose to register with Apple, Google or email, we receive your name and email address so we can keep your file with you across devices.</li>
+        <li><strong>The matters you file.</strong> When a matter is accepted, we store the issued certificate record: the certificate text, its classification, case number, the claimant name shown on the certificate, its visibility setting, related filing metadata and public interaction counts. We do not store your original grievance words (see section 3).</li>
+        <li><strong>Purchase information.</strong> If you buy a subscription, we and our payment providers keep a record of that purchase so we can provide what you paid for.</li>
+        <li><strong>Device identifiers.</strong> We use device identifiers to keep the service secure, to verify legitimate app traffic and, if you allow notifications, to deliver them.</li>
+        <li><strong>Usage information.</strong> We collect anonymous usage statistics to understand how the app is used and to improve it (see section 7).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Your grievance and AI processing</h2>
+      <p>To prepare the certificate text from the matter you submit, the Department uses <strong>Anthropic</strong> as an artificial-intelligence processing provider. We send <strong>only the grievance text</strong> to Anthropic for this purpose. We do not send your name, email address, user ID, purchase status or device identifier.</p>
+      <p>Anthropic processes the submitted text transiently to return the certificate response. According to Anthropic's API data-use commitments, API inputs and outputs are not used to train Anthropic's models unless a customer expressly opts in, which we do not.</p>
+      <p><strong>Your original grievance words are never stored on our servers.</strong> Once the certificate has been prepared, only the certificate record is kept.</p>
+    </section>
+
+    <section>
+      <h2>4. Drafts on your device</h2>
+      <p>If you begin a filing and do not finish it, the draft text may be saved locally on your device so you can pick it up again later. A draft is held on your device only; it is not uploaded to the Department's servers as a draft.</p>
+    </section>
+
+    <section>
+      <h2>5. Public filings and the Bulletin</h2>
+      <p>When you file, you choose whether the matter is public or private.</p>
+      <ul>
+        <li><strong>Public filings</strong> appear on the Bulletin and are visible to other users of the app. A public certificate may show the claimant name recorded on it, the certificate text, case number, filing date, classification and public interaction counts.</li>
+        <li><strong>Private filings</strong> remain in your own file and do not appear on the Bulletin.</li>
+      </ul>
+      <p>Before your first public filing, you are asked to accept the public-filing terms in the app. You can always choose to file privately instead.</p>
+    </section>
+
+    <section>
+      <h2>6. Payments and subscriptions</h2>
+      <p>Subscriptions are sold and managed through the Apple App Store or Google Play, and handled on our side by <strong>RevenueCat</strong>, which helps us confirm your subscription status. We receive a record of your purchase and the status of your subscription. We do not receive or store your full card details; those are handled by the app store.</p>
+    </section>
+
+    <section>
+      <h2>7. Usage statistics</h2>
+      <p>We use <strong>Firebase Analytics</strong> (a Google service) to understand how the app is used. These statistics carry counts, categories, desks, outcomes, durations and character counts only. They <strong>never</strong> include your grievance text, claimant names or anything that would reconstruct a filing.</p>
+      <p>We do not use an advertising identifier, we do not show a tracking request, and we do not track you across other companies' apps or websites for advertising.</p>
+    </section>
+
+    <section>
+      <h2>8. Notifications</h2>
+      <p>If you allow notifications, we use Firebase Cloud Messaging to send the Department's notices and directives to your device. You can turn notifications off at any time in your device settings.</p>
+    </section>
+
+    <section>
+      <h2>9. Who we share information with</h2>
+      <p>We do not sell your information. We share it only with the service providers that help us run the app, and only so far as they need it to provide their service:</p>
+      <ul>
+        <li><strong>Google</strong> (Firebase) for sign-in, storage of certificate records, security, notifications and usage statistics.</li>
+        <li><strong>Anthropic</strong> for preparing certificate text, as described in section 3.</li>
+        <li><strong>RevenueCat</strong> and the <strong>Apple App Store</strong> or <strong>Google Play</strong> for subscriptions and payments.</li>
+        <li><strong>Apple</strong> or <strong>Google</strong> where you choose to sign in with their account.</li>
+      </ul>
+      <p>We may also disclose information where we are required to do so by law.</p>
+    </section>
+
+    <section>
+      <h2>10. A note on wellbeing</h2>
+      <p>Let It Be Known is a place to have small things acknowledged. It is not a medical, counselling or crisis service, and it is not a substitute for professional help. Where the app signposts support, it does so as a courtesy. If you are in distress or in danger, please contact a qualified service or the emergency services in your country.</p>
+    </section>
+
+    <section>
+      <h2>11. Keeping and deleting your information</h2>
+      <p>You can delete your account at any time from Department Records within the app. Deletion removes your sign-in account, your user record, your notifications, your interactions and the certificates attributable to your account, including any that were public.</p>
+      <p>After deletion, the Department does not keep a separate copy of your file. Some provider-operated systems, such as app store purchase records or security and infrastructure logs, may retain limited records in line with their own rules and legal obligations.</p>
+    </section>
+
+    <section>
+      <h2>12. Your rights</h2>
+      <p>Depending on where you live, you may have rights over your personal information, including the right to access it, to correct it, to delete it, and to object to or restrict certain uses. You can exercise the main rights directly in the app, and you can contact us about any of them at <a href="mailto:hello@everydayarc.com">hello@everydayarc.com</a>.</p>
+    </section>
+
+    <section>
+      <h2>13. Children</h2>
+      <p>Let It Be Known is not intended for young children. You should be old enough to agree to this policy in your country before using the app. If you believe a child has provided us with personal information, please contact us and we will take appropriate steps.</p>
+    </section>
+
+    <section>
+      <h2>14. Changes to this policy</h2>
+      <p>We may update this policy from time to time. When we do, we will update the "Last updated" date at the top of this page. We encourage you to review it from time to time.</p>
+    </section>
+
+    <section>
+      <h2>15. Contact</h2>
+      <p>For any question about this policy or how the Department handles your information, please contact <strong>Everyday Arc Ltd</strong> at <a href="mailto:hello@everydayarc.com">hello@everydayarc.com</a>.</p>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <div class="foot-brand">
+      <div class="word">Let It Be Known</div>
+      <div class="ftag">A ceremony for small things</div>
+    </div>
+    <div class="registrar">
+      <span class="r">R.</span>
+      <div class="rl">The Registrar</div>
+    </div>
+    <div class="reference">
+      <a href="dosm-terms.html">Terms of Use</a><br>
+      <a href="mailto:hello@everydayarc.com">hello@everydayarc.com</a><br>
+      Ref. DOSM/PP/2026
+    </div>
+  </footer>
+  <p class="colophon">An institution of Everyday Arc</p>
+</div>
+</body>
+</html>
