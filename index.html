@@ -1194,8 +1194,9 @@
         }
 
         .cta-card-logo {
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            min-height: 44px;
         }
 
         .cta-card-logo img {
@@ -1373,9 +1374,10 @@
         .libk-lockup.on-dark .lk-bar { background: rgba(248, 246, 243, 0.25); }
         .libk-lockup.on-dark .lk-word { color: var(--cream); }
         .libk-lockup.on-dark .lk-tag { color: rgba(248, 246, 243, 0.55); }
-        .cta-card-logo .libk-lockup .lk-mark { width: 44px; height: 44px; }
-        .cta-card-logo .libk-lockup .lk-bar { height: 34px; }
-        .cta-card-logo .libk-lockup .lk-word { font-size: 1.3rem; }
+        .cta-card-logo .libk-lockup { gap: 10px; }
+        .cta-card-logo .libk-lockup .lk-mark { width: 34px; height: 34px; }
+        .cta-card-logo .libk-lockup .lk-bar { height: 26px; }
+        .cta-card-logo .libk-lockup .lk-word { font-size: 0.95rem; letter-spacing: 0.1em; }
 
         .cta-card-tag.gold { color: var(--sand); }
         .btn-cta.gold-cta {
@@ -1811,7 +1813,7 @@
                 <div class="product-info">
                     <div class="product-status coming">
                         <span class="status-dot coming"></span>
-                        Coming soon
+                        In development
                     </div>
                     <div class="product-logo">
                         <img src="logos/Rooted filled oval on the left-1.svg" alt="Rooted logo" class="logo-square">
@@ -1941,7 +1943,7 @@
                     <a href="https://planscope.app" class="btn-cta teal-cta" target="_blank" rel="noopener">Try Planscope <span class="btn-arrow">&rsaquo;</span></a>
                 </div>
                 <div class="cta-card reveal" data-delay="3">
-                    <div class="cta-card-tag sage"><span class="cta-card-tag-dot"></span> Coming soon</div>
+                    <div class="cta-card-tag sage"><span class="cta-card-tag-dot"></span> In development</div>
                     <div class="cta-card-logo">
                         <img src="logos/Rooted filled oval on the left-1.svg" alt="Rooted" class="logo-square">
                     </div>
@@ -1962,7 +1964,7 @@
                                 <circle cx="48" cy="58.5" r="3.25" fill="#D4A574"/>
                             </svg>
                             <span class="lk-bar"></span>
-                            <span><span class="lk-word">Let It Be Known</span><span class="lk-tag">A ceremony for small things</span></span>
+                            <span class="lk-word">Let It Be Known</span>
                         </span>
                     </div>
                     <p>Present a small injustice to the Department of Small Matters and receive it back as a formal certificate, entered into the public registry.</p>
