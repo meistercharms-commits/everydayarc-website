@@ -12,7 +12,7 @@
     <link rel="icon" type="image/svg+xml" href="logos/everydayarc-icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         /* ========================================
            CUSTOM PROPERTIES
@@ -35,6 +35,8 @@
             --brown: #5C4033;
             --white: #FFFFFF;
             --black: #1a1817;
+            --navy: #1E3A5F;
+            --navy-deep: #14293F;
 
             --font-display: 'Cormorant', Georgia, 'Times New Roman', serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -1147,7 +1149,7 @@
 
         .cta-cards {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.25rem;
             text-align: left;
         }
@@ -1195,14 +1197,16 @@
         }
 
         .cta-card-logo img {
-            height: 32px;
             width: auto;
+            height: auto;
+            max-height: 32px;
+            max-width: 100%;
             display: block;
             opacity: 0.9;
         }
 
         .cta-card-logo img.logo-square {
-            height: 36px;
+            max-height: 36px;
             filter: brightness(0) invert(1);
         }
 
@@ -1255,12 +1259,131 @@
             transition: transform 0.3s ease;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 900px) {
             .cta-cards { grid-template-columns: 1fr; }
         }
 
         .btn-cta:hover .btn-arrow {
             transform: translateX(3px);
+        }
+
+        /* ========================================
+           LET IT BE KNOWN (navy on light, gold on dark)
+           ======================================== */
+        .product-status.opening { color: var(--navy); }
+        .status-dot.opening { background: var(--navy); opacity: 0.75; }
+
+        .feature-mark.navy {
+            background: rgba(30, 58, 95, 0.1);
+            color: var(--navy);
+        }
+
+        .btn-product.navy-btn {
+            background: var(--navy);
+            color: var(--white);
+            border: 1.5px solid var(--navy);
+        }
+        .btn-product.navy-btn:hover {
+            background: transparent;
+            color: var(--navy);
+        }
+
+        /* Certificate-and-seal motif */
+        .product-visual.libk-visual {
+            background: linear-gradient(160deg, #F3ECDA 0%, #E9DEC5 45%, #DED0AE 100%);
+        }
+        .lk-shape { position: absolute; transition: transform 0.6s var(--ease-out-expo); }
+        .product-showcase:hover .lk-shape { transform: translateY(-4px); }
+        .lk-shape-1 {
+            width: 216px; height: 214px;
+            background: #FBF7EC;
+            border-radius: 10px;
+            top: 33px; left: 32px;
+            border: 1px solid rgba(30, 58, 95, 0.14);
+            box-shadow: 0 12px 30px rgba(30, 58, 95, 0.10);
+        }
+        .lk-shape-2 {
+            width: 216px; height: 7px;
+            background: var(--navy);
+            border-radius: 10px 10px 0 0;
+            top: 33px; left: 32px;
+        }
+        .lk-shape-3 {
+            width: 116px; height: 9px;
+            background: rgba(30, 58, 95, 0.82);
+            border-radius: 4px;
+            top: 72px; left: 82px;
+        }
+        .lk-shape-4 {
+            width: 42px; height: 3px;
+            background: var(--sand);
+            border-radius: 2px;
+            top: 92px; left: 119px;
+        }
+        .lk-shape-5 {
+            width: 148px; height: 7px;
+            background: rgba(30, 58, 95, 0.16);
+            border-radius: 4px;
+            top: 112px; left: 66px;
+        }
+        .lk-shape-6 {
+            width: 120px; height: 7px;
+            background: rgba(30, 58, 95, 0.12);
+            border-radius: 4px;
+            top: 130px; left: 80px;
+        }
+        .lk-shape-7 {
+            width: 46px; height: 46px;
+            border: 2px solid var(--navy);
+            border-radius: 50%;
+            top: 165px; left: 117px;
+            opacity: 0.9;
+        }
+        .lk-shape-8 {
+            width: 15px; height: 15px;
+            background: var(--sand);
+            border-radius: 50%;
+            top: 180px; left: 132px;
+        }
+
+        /* Brand lockup (nib seal + wordmark), mirrored from the landing header */
+        .libk-lockup { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+        .libk-lockup .lk-mark { width: 54px; height: 54px; flex: 0 0 auto; }
+        .libk-lockup .lk-bar { width: 1px; height: 40px; background: rgba(30, 58, 95, 0.28); }
+        .libk-lockup .lk-word {
+            font-family: 'Cormorant SC', 'Cormorant', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 0.12em;
+            line-height: 1.05;
+            text-transform: uppercase;
+            color: var(--charcoal);
+            display: block;
+        }
+        .libk-lockup .lk-tag {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.92rem;
+            color: var(--taupe);
+            margin-top: 3px;
+            display: block;
+        }
+        .libk-lockup.on-dark .lk-bar { background: rgba(248, 246, 243, 0.25); }
+        .libk-lockup.on-dark .lk-word { color: var(--cream); }
+        .libk-lockup.on-dark .lk-tag { color: rgba(248, 246, 243, 0.55); }
+        .cta-card-logo .libk-lockup .lk-mark { width: 44px; height: 44px; }
+        .cta-card-logo .libk-lockup .lk-bar { height: 34px; }
+        .cta-card-logo .libk-lockup .lk-word { font-size: 1.3rem; }
+
+        .cta-card-tag.gold { color: var(--sand); }
+        .btn-cta.gold-cta {
+            background: transparent;
+            color: var(--sand);
+            border: 1.5px solid rgba(212, 165, 116, 0.45);
+        }
+        .btn-cta.gold-cta:hover {
+            background: rgba(212, 165, 116, 0.1);
+            border-color: var(--sand);
         }
 
         /* ========================================
@@ -1710,6 +1833,59 @@
                     <a href="https://myrooted.app" class="btn-product terra-btn" target="_blank" rel="noopener">Join the waitlist <span class="btn-arrow">&rsaquo;</span></a>
                 </div>
             </div>
+
+            <!-- Let It Be Known -->
+            <div class="product-showcase reveal">
+                <div class="product-visual libk-visual">
+                    <div class="product-abstract">
+                        <div class="lk-shape lk-shape-1"></div>
+                        <div class="lk-shape lk-shape-2"></div>
+                        <div class="lk-shape lk-shape-3"></div>
+                        <div class="lk-shape lk-shape-4"></div>
+                        <div class="lk-shape lk-shape-5"></div>
+                        <div class="lk-shape lk-shape-6"></div>
+                        <div class="lk-shape lk-shape-7"></div>
+                        <div class="lk-shape lk-shape-8"></div>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-status opening">
+                        <span class="status-dot opening"></span>
+                        Opening soon
+                    </div>
+                    <div class="product-logo">
+                        <span class="libk-lockup">
+                            <svg class="lk-mark" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+                                <circle cx="48" cy="48" r="44" stroke="#1E3A5F" stroke-width="1.5"/>
+                                <circle cx="48" cy="58.5" r="18" stroke="#1E3A5F" stroke-width="1" opacity=".5"/>
+                                <circle cx="48" cy="58.5" r="9.5" stroke="#1E3A5F" stroke-width="1" opacity=".7"/>
+                                <path d="M 48 22.5 L 43.75 50 Q 48 60 48 60 Q 48 60 52.25 50 Z" fill="#1E3A5F"/>
+                                <line x1="48" y1="32.5" x2="48" y2="47.5" stroke="#F8F6F3" stroke-width=".8"/>
+                                <circle cx="48" cy="42" r="1.5" fill="#F8F6F3"/>
+                                <circle cx="48" cy="58.5" r="3.25" fill="#D4A574"/>
+                            </svg>
+                            <span class="lk-bar"></span>
+                            <span><span class="lk-word">Let It Be Known</span><span class="lk-tag">A ceremony for small things</span></span>
+                        </span>
+                    </div>
+                    <p class="product-desc">The Department of Small Matters receives the grievances too minor for anyone else. Present your small injustice and it returns as a formal certificate: acknowledged, recorded, and entered into the public registry. A little dignity for the daily indignities.</p>
+                    <ul class="product-features">
+                        <li>
+                            <span class="feature-mark navy"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Every matter returns as a certificate
+                        </li>
+                        <li>
+                            <span class="feature-mark navy"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            Solemn on the outside, warm underneath
+                        </li>
+                        <li>
+                            <span class="feature-mark navy"><svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                            No grievance too trivial, no matter too small
+                        </li>
+                    </ul>
+                    <a href="/letitbeknown/" class="btn-product navy-btn">Read the notice <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1752,7 +1928,7 @@
         <div class="cta-ambient cta-ambient-2" aria-hidden="true"></div>
         <div class="cta-inner">
             <h2 class="reveal">Start where you are</h2>
-            <p class="reveal" data-delay="1">Two products. One for planning, one for care. Pick the one that fits where you are right now.</p>
+            <p class="reveal" data-delay="1">Three products, each for a different kind of day. Pick the one that fits where you are right now.</p>
             <div class="cta-cards">
                 <div class="cta-card reveal" data-delay="2">
                     <div class="cta-card-tag teal"><span class="cta-card-tag-dot"></span> Available now</div>
@@ -1769,6 +1945,26 @@
                     </div>
                     <p>A gentle companion for natural hair and self-care. Track what works, celebrate small wins, and build routines that feel sustainable.</p>
                     <a href="https://myrooted.app" class="btn-cta sage-cta" target="_blank" rel="noopener">Join the waitlist <span class="btn-arrow">&rsaquo;</span></a>
+                </div>
+                <div class="cta-card reveal" data-delay="4">
+                    <div class="cta-card-tag gold"><span class="cta-card-tag-dot"></span> Opening soon</div>
+                    <div class="cta-card-logo">
+                        <span class="libk-lockup on-dark">
+                            <svg class="lk-mark" viewBox="0 0 96 96" fill="none" aria-hidden="true">
+                                <circle cx="48" cy="48" r="44" stroke="#F8F6F3" stroke-width="1.5"/>
+                                <circle cx="48" cy="58.5" r="18" stroke="#F8F6F3" stroke-width="1" opacity=".5"/>
+                                <circle cx="48" cy="58.5" r="9.5" stroke="#F8F6F3" stroke-width="1" opacity=".7"/>
+                                <path d="M 48 22.5 L 43.75 50 Q 48 60 48 60 Q 48 60 52.25 50 Z" fill="#F8F6F3"/>
+                                <line x1="48" y1="32.5" x2="48" y2="47.5" stroke="#1E3A5F" stroke-width=".8"/>
+                                <circle cx="48" cy="42" r="1.5" fill="#1E3A5F"/>
+                                <circle cx="48" cy="58.5" r="3.25" fill="#D4A574"/>
+                            </svg>
+                            <span class="lk-bar"></span>
+                            <span><span class="lk-word">Let It Be Known</span><span class="lk-tag">A ceremony for small things</span></span>
+                        </span>
+                    </div>
+                    <p>Present a small injustice to the Department of Small Matters and receive it back as a formal certificate, entered into the public registry.</p>
+                    <a href="/letitbeknown/" class="btn-cta gold-cta">Read the notice <span class="btn-arrow">&rsaquo;</span></a>
                 </div>
             </div>
         </div>
@@ -1791,6 +1987,7 @@
                         <h4>Products</h4>
                         <a href="https://planscope.app" target="_blank" rel="noopener">Planscope</a>
                         <a href="https://myrooted.app" target="_blank" rel="noopener">Rooted</a>
+                        <a href="/letitbeknown/">Let It Be Known</a>
                     </div>
                     <div class="footer-col">
                         <h4>Company</h4>
